@@ -140,7 +140,7 @@ def radial(l,n,Z,plot=True):
         plt.xlabel('$\sqrt{\mathrm{r}}$ (a.u.)')
         plt.ylabel("P")
         plt.tight_layout(pad=1.0)
-        plt.show()
+        #plt.show()
 
     return (r,P,E,)
 
