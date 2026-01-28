@@ -4,7 +4,9 @@ import Radial_functions as Rf
 import numpy as np
 import matplotlib.pyplot as plt
 
-r = np.linspace(0,20,1000)
+switch = 'potentials'
+
+r = np.linspace(0, 20, 100)
 Z = 1
 P3s = Rf.P3s(r,Z)
 P3p = Rf.P3p(r,Z)
@@ -14,22 +16,52 @@ D3s = (P3s)**2      # radial density is square of radial wave func
 D3p = (P3p)**2      # interpret it as the prob of finding a certain radius?
 D3d = (P3d)**2
 
-plt.plot(r, D3s, label = "3s")
-plt.plot(r, D3p, label = "3p")
-plt.plot(r, D3d, label = "3d")
+if switch == 'orbitals':
+    plt.plot(r, D3s, label = "3s")
+    plt.plot(r, D3p, label = "3p")
+    plt.plot(r, D3d, label = "3d")
 
-# actual orbitals, just for sanity checking
-"""plt.plot(r, P3s, label = "3s")
-plt.plot(r, P3p, label = "3p")
-plt.plot(r, P3d, label = "3d")
-"""
+    # actual orbitals, just for sanity checking
+    """plt.plot(r, P3s, label = "3s")
+    plt.plot(r, P3p, label = "3p")
+    plt.plot(r, P3d, label = "3d")
+    """
 
-plt.title("Radial density functions for different orbitals")
-plt.xlabel("r")
-plt.ylabel("D(r)")
-plt.legend()
-plt.show()
+    plt.title("Radial density functions for different orbitals")
+    plt.xlabel("r")
+    plt.ylabel("D(r)")
+    plt.legend()
+    plt.grid()
+    plt.show()
 
-# as expected, 3d has no nodes since it is the first orbital of the diffuse state
-# 3p has one since it is the 2nd orbital of the principal state
-# 3s has two nodes since it is the 3rd :) yaaaay
+    # ANSWERS TO QUESTIONS
+    # as expected, 3d has no nodes since it is the first orbital of the diffuse state
+    # 3p has one since it is the 2nd orbital of the principal state
+    # 3s has two nodes since it is the 3rd :) yaaaay
+
+if switch == 'potentials':
+    # plot potential:
+    def Veff(Z, r, l):
+        return (-Z/r) + (l*(l+1))/(2*r**2)
+
+    r = np.linspace(0, 30, 100)     # can't divide by 0
+
+    s_pot = Veff(Z, r, 0)
+    p_pot = Veff(Z, r, 1)       # just using the ls for the different orbitals that we know from brageboy
+    d_pot = Veff(Z, r, 2)
+
+    plt.plot(r, s_pot, label = "s")     # this one is stinky - l = 0, so we only have coulomb potential
+    plt.plot(r, p_pot, label = "p")     # this one looks nice
+    plt.plot(r, d_pot, label = "d")     # this one is also stinky bc centrifugal potential gets so strong
+
+    plt.title("Effective potentials for different orbitals")
+    plt.xlabel("r")
+    plt.ylabel("V(r)")
+    plt.legend()
+    plt.grid()
+    plt.ylim(-0.4, 0.05)
+    plt.show()
+
+    # ANSWERS TO QUESTIONS:
+    # so the higher the centrifugal potential/l the fewer nodes we get 
+    # s is special bc the centrifugal pot = 0
