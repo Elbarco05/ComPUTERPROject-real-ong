@@ -1,1 +1,35 @@
 # first task (that is 2 for some reason) of first half of lab :P
+
+import Radial_functions as Rf
+import numpy as np
+import matplotlib.pyplot as plt
+
+r = np.linspace(0,20,1000)
+Z = 1
+P3s = Rf.P3s(r,Z)
+P3p = Rf.P3p(r,Z)
+P3d = Rf.P3d(r,Z)
+
+D3s = (P3s)**2      # radial density is square of radial wave func
+D3p = (P3p)**2      # interpret it as the prob of finding a certain radius?
+D3d = (P3d)**2
+
+plt.plot(r, D3s, label = "3s")
+plt.plot(r, D3p, label = "3p")
+plt.plot(r, D3d, label = "3d")
+
+# actual orbitals, just for sanity checking
+"""plt.plot(r, P3s, label = "3s")
+plt.plot(r, P3p, label = "3p")
+plt.plot(r, P3d, label = "3d")
+"""
+
+plt.title("Radial density functions for different orbitals")
+plt.xlabel("r")
+plt.ylabel("D(r)")
+plt.legend()
+plt.show()
+
+# as expected, 3d has no nodes since it is the first orbital of the diffuse state
+# 3p has one since it is the 2nd orbital of the principal state
+# 3s has two nodes since it is the 3rd :) yaaaay
