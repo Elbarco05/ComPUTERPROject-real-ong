@@ -1,1 +1,69 @@
 # first task (that is 2 for some reason) of first half of lab :P
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+import Radial_functions as Rf
+
+
+
+r = np.linspace(0,20,1000)
+Z = 1
+
+
+def rad_dens(f):
+    return f**2
+
+
+# defining functions
+
+P1s = Rf.P1s(r,Z)
+P2s = Rf.P2s(r,Z)
+P2p = Rf.P2p(r,Z)
+P3s = Rf.P3s(r,Z)
+P3p = Rf.P3p(r,Z)
+P3d = Rf.P3d(r,Z)
+
+# plotting functions (switches)
+
+og_plots = 0
+dr_plots = 1
+potential = 0
+
+
+# potentials
+
+def V(r, Z, l):
+    pot = -Z/r + (l*(l+1))/(2*r**2)
+    return pot
+
+
+# task "1.1"
+
+if og_plots:
+    plt.plot(r,P1s)
+    plt.plot(r,P2s)
+    plt.plot(r,P2p)
+    plt.plot(r,P3s)
+    plt.plot(r,P3p)
+    plt.plot(r,P3d)
+
+# task "1.2"
+
+if dr_plots:
+    plt.plot(r,rad_dens(P3s))
+    plt.plot(r,rad_dens(P3p))
+    plt.plot(r,rad_dens(P3d))
+
+if potential:
+    r = np.linspace(0,30,1000)
+    plt.plot(r, V(r, Z, 0))
+    plt.plot(r, V(r, Z, 1))
+    plt.plot(r, V(r, Z, 2))
+    plt.xlim(0,30)
+    plt.ylim(-0.3,0.05)
+    
+    
+plt.grid()
+plt.show()
