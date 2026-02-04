@@ -18,23 +18,26 @@ PP = []
 
 fig, axs = plt.subplots(np.size(n))
 
-for n_ in n:
-    r, P, E = rad.radial(l, n_, Z, False)
-    rl, Pl, El, Gl = radlog.radiallog(l, n_, Z, False)
+for i in range(np.size(n)):
+    r, P, E = rad.radial(l, n[i], Z, False)
+    rl, Pl, El, Gl = radlog.radiallog(l, n[i], Z, False)
     Elis.append(E)
     Logis.append(El)
     GridPoints.append(Gl)
     R.append(rl)
+    axs[i].plot(np.sqrt(r), P)
+    axs[i].plot(np.sqrt(rl), np.sqrt(rl)*Pl)
+
 
 Elis = np.array(Elis)
 Logis = np.array(Logis)
 
 Realis = -(Z**2)/(2*np.power(n,2))
 
-axs[0].plot()
-
 print(Elis)
 print(Logis)
 print(Realis)
 
 print(GridPoints)
+
+plt.show()
