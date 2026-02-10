@@ -60,8 +60,22 @@ opt_a = opt_a[0]
 elis_a = 0.28326672
 
 print(opt_a)
-print(diff(opt_a))
-print(diff(0.28326672))
+#print(diff(opt_a))
+#print(diff(0.28326672))
 
 print(energies(opt_a))
-print(energies(elis_a))
+#print(energies(elis_a))
+
+leg = ["1s", "2s", "2p"]
+for i in range(3):
+    r, P, E_, g = radlog.radiallog(l[i], n[i], Z, opt_a, N, plot=False)
+    plt.plot(r, np.sqrt(r)*P, label=leg[i])
+
+
+plt.xlim(-1, 30)
+plt.xlabel('r')
+plt.title('Radial Functions of Li I orbitals')
+
+plt.grid()
+plt.legend()
+plt.show()
