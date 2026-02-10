@@ -16,7 +16,7 @@ GridPoints = []
 R = []
 PP = []
 
-fig, axs = plt.subplots(np.size(n))
+fig, axs = plt.subplots(2, sharex=True)
 
 for i in range(np.size(n)):
     r, P, E = rad.radial(l, n[i], Z, False)
@@ -25,8 +25,9 @@ for i in range(np.size(n)):
     Logis.append(El)
     GridPoints.append(Gl)
     R.append(rl)
-    axs[i].plot(np.sqrt(r), P)
-    axs[i].plot(np.sqrt(rl), np.sqrt(rl)*Pl)
+    if i == 1:
+        axs[0].plot(np.sqrt(r), P)
+        axs[1].plot(np.sqrt(rl), np.sqrt(rl)*Pl)
 
 
 Elis = np.array(Elis)
@@ -39,5 +40,12 @@ print(Logis)
 print(Realis)
 
 print(GridPoints)
+
+fig.supxlabel('$\sqrt{\mathrm{r}}$ (a.u.)')
+axs[0].set_title("Linear")
+axs[1].set_title("Logarithmic")
+fig.suptitle('Radial Functions 2s for $Z=1$')
+
+fig.savefig('fleeble.pdf')
 
 plt.show()
